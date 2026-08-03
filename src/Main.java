@@ -3,5 +3,6 @@ public class Main {
         System.out.println("Hello world!");
         String name = Thread.currentThread().getName();
         System.out.println(name);
+
     }
 }
