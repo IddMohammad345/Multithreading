@@ -11,5 +11,7 @@ public class MyThread extends Thread{
         System.out.println(t1.getState());
         t1.start();
         System.out.println(t1.getState());
+
+        System.out.println(Thread.currentThread().getState());
     }
 }
