@@ -20,6 +20,7 @@ public class MyThread2 extends Thread{
 
     public static void main(String[] args) {
         MyThread2 thread2=new MyThread2("Idd");
+        thread2.setPriority(Thread.MIN_PRIORITY);
         thread2.start();
     }
 }
