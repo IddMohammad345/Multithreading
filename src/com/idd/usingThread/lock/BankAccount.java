@@ -5,34 +5,34 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BankAccount {
-    private int balance=100;
+    private int balance = 100;
 
-    private final Lock lock=new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
-    public void withdrew(int amount){
-        System.out.println(Thread.currentThread().getName()+" attempting to withdrew "+amount);
+    public void withdrew(int amount) {
+        System.out.println(Thread.currentThread().getName() + " attempting to withdrew " + amount);
         try {
             if (lock.tryLock(1000, TimeUnit.MILLISECONDS)) {
-                if (balance >= amount){
+                if (balance >= amount) {
                     try {
-                        System.out.println(Thread.currentThread().getName() +" Proceeding with withdrawal");
+                        System.out.println(Thread.currentThread().getName() + " Proceeding with withdrawal");
                         Thread.sleep(3000);
-                        balance -=amount;
-                        System.out.println(Thread.currentThread().getName()+" Withdrawal completed.. "+balance);
-                    }catch (Exception e){
-
-                    }finally {
+                        balance -= amount;
+                        System.out.println(Thread.currentThread().getName() + " Withdrawal completed.. " + balance);
+                    } catch (Exception e) {
+                        Thread.currentThread().interrupt();
+                    } finally {
                         lock.unlock();
                     }
-                }else {
+                } else {
                     System.out.println(Thread.currentThread().getName() + " insufficient balance ");
                 }
 
-            }else {
-                System.out.println(Thread.currentThread().getName()+ " could not acquire the lock, will try later");
+            } else {
+                System.out.println(Thread.currentThread().getName() + " could not acquire the lock, will try later");
             }
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
